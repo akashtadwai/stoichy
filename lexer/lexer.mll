@@ -3,10 +3,11 @@
     open Parser
 }
 let digit  = ['0'-'9']
-let character = ['A'-'Z' 'a'-'z'] 
+let character = ['A'-'Z' 'a'-'z']   
 let element = ['A'-'Z']['a'-'z']?
 rule tokens = parse
-    |';'                    {printf "SEMI"; SEMICOLON  }
+    [' ' '\t' '\r' '\n']					{ tokens lexbuf }
+    |';'                    {SEMICOLON }
     |':'                    {COLON} 
     |'"'                    {APOS}   
     |'('                    {LPAREN}
@@ -50,54 +51,42 @@ rule tokens = parse
     |"mol_mass"             {MOLAR_MASS}
     |"mol_charge"           {MOL_CHARGE}
     |"mol_electrons"        {MOL_ELECTRON}
-    (* |"mass"  as attr        {ATTRIBUTE(attr)}
-    |"charge" as attr       {ATTRIBUTE{attr}}
-    |"electrons" as attr    {ATTRIBUTE{attr}} *)
+    |"mass"  as attr        {printf "mass";ATTRIBUTE(attr)}
+    |"charge" as attr       {ATTRIBUTE(attr)}
+    |"electrons" as attr    {ATTRIBUTE(attr)}
     |"def"                  {FUNCTION} (* diff *)
     |"object"               {OBJECT}
     |"return"               {RETURN}
     |"print"                {PRINT}   
     |"call"                 {CALL}
     |"draw"                 {DRAW}
-	|"true"			   	        {TRUE}
-	|"false"				        {FALSE}
-    (* | (digit)+ '.'(digit)+ as lexemme  {DOUBLE(float_of_string lexemme)}
-    |digit+ as lexemme         {INTEGER(int_of_string lexemme)}
+	  |"true"			   	        {TRUE}
+	  |"false"				        {FALSE}
+    | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
+    |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}
-    | (element digit+ as lexemme         {MOLECULE_LITERAL(lexemme)}
-    | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)} *)
-    |eof                       {exit 0} 
-    | _ {NOTHING}
+    | (element digit+)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
+    | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
+    |['a'-'z'](letter| digit |'') ∗ as lxm { ID(lxm )}
+    | eof                       {raise End_of_file} 
+    | _ {printf "Invalid";tokens lexbuf}
 
-  (*  | "/*"		{ print_endline "multiline comments start"; multiline_comment_mode lexbuf }
-    | "//"	{ singleline_comment_mode lexbuf }
+   | "/*"		{ print_endline "multiline comments start"; multiline_comment_mode lexbuf }
+    | "//"	{ print_endline "single line comments start";singleline_comment_mode lexbuf }
     | _ {tokens lexbuf }
-  (* | eof		{ raise End_of_file } *)
 
 and singleline_comment_mode = parse
-    '\n'	{ Printf.printf "single comments end\n";}
-    | eof   { Printf.printf "comments end\n";raise End_of_file}
-    | _ {tokens lexbuf }
+    '\n'	{printf "single comments end\n";tokens lexbuf}
+    | eof   {printf "comments end\n";raise End_of_file}
+    | _ {singleline_comment_mode lexbuf }
 
 and multiline_comment_mode = parse
     "*/"  { Printf.printf "multi comments end\n";tokens lexbuf}
   | eof   {Printf.printf "error: unterminated comment";raise End_of_file}
-  | _ {tokens lexbuf } *)
+  | _ {multiline_comment_mode lexbuf}
 
- 
 
   (*ocamllex lexer.mll
     ocamlyacc parser.mly
     ocamlc parser.mli  master ◼
     ocamlc lexer.ml*)
-
-{
-let main () =
-let lexbuf = Lexing.from_channel stdin in
-while true do
-tokens lexbuf
-done
-   
-
-let _ = Printexc.print main ()
-} 
