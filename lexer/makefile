@@ -1,6 +1,6 @@
-OBJS = parser.cmo lexer.cmo main.cmo 
+OBJS = ast.cmo parser.cmo lexer.cmo main.cmo 
 parser : $(OBJS) # $(cmd)
-	ocamlc -o parser lexer.cmo parser.cmo main.cmo
+	ocamlc -o parser lexer.cmo parser.cmo main.cmo 
 lexer.ml:lexer.mll
 	ocamllex lexer.mll
 parser.ml parser.mli:parser.mly
@@ -9,7 +9,13 @@ parser.ml parser.mli:parser.mly
 	ocamlc -c $<
 %.cmi : %.mli 
 	ocamlc -c $<
-parser.cmo:parser.cmi 
+# parser.cmo:parser.cmi 
+ast.cmo : ast.cmi
+ast.cmx : ast.cmi
+parser.cmo : ast.cmi parser.cmi
+parser.cmx : ast.cmx parser.cmi
+ast.cmi :
+parser.cmi : ast.cmi
 clean:
 	rm -rf parser.mli lexer.ml parser.ml *.cmi *.cmo
 

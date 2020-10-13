@@ -1,8 +1,5 @@
-//asdljfsdlfj
-element
-/*kjsfljsdf
-lskjfldsfj
-*/
-/*s;lfksdf
-*/
-#
+def first(int a,int b)
+{
+    a = 2;
+    b = 2;
+}

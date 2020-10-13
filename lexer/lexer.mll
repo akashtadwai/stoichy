@@ -67,7 +67,7 @@ rule tokens = parse
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}
     | (element digit+)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
-    |['a'-'z'](letter| digit |'') ∗ as lxm { ID(lxm )}
+    |['a' - 'z'](character|digit)* as lexemme { ID(lexemme)}
     | eof                       {raise End_of_file} 
     | _ {printf "Invalid";tokens lexbuf}
 
