@@ -22,6 +22,7 @@ rule tokens = parse
     |'*'                    {MUL}
     |'/'                    {DIV}
     |'%'                    {MOD} 
+    |'.'                    {ACCESS}
     |'^'                    {CONCATENATE}
     |'='                    {ASSIGN}
     |"=="                   {EQ}
@@ -60,15 +61,15 @@ rule tokens = parse
     |"print"                {PRINT}   
     |"call"                 {CALL}
     |"draw"                 {DRAW}
-	  |"true"			   	        {TRUE}
-	  |"false"				        {FALSE}
+	|"true"			   	    {TRUE}
+    |"false"	            {FALSE}
     | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
     |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}
     | (element digit+)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
     |['a' - 'z'](character|digit)* as lexemme { ID(lexemme)}
-    | eof                       {raise End_of_file} 
+    | eof                       {EOF} 
     | _ {printf "Invalid";tokens lexbuf}
 
    | "/*"		{ print_endline "multiline comments start"; multiline_comment_mode lexbuf }
@@ -77,16 +78,10 @@ rule tokens = parse
 
 and singleline_comment_mode = parse
     '\n'	{printf "single comments end\n";tokens lexbuf}
-    | eof   {printf "comments end\n";raise End_of_file}
+    | eof   {printf "comments end\n";EOF}
     | _ {singleline_comment_mode lexbuf }
 
 and multiline_comment_mode = parse
     "*/"  { Printf.printf "multi comments end\n";tokens lexbuf}
-  | eof   {Printf.printf "error: unterminated comment";raise End_of_file}
+  | eof   {Printf.printf "error: unterminated comment";EOF}
   | _ {multiline_comment_mode lexbuf}
-
-
-  (*ocamllex lexer.mll
-    ocamlyacc parser.mly
-    ocamlc parser.mli  master ◼
-    ocamlc lexer.ml*)

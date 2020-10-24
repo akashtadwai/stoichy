@@ -39,7 +39,7 @@ type statement =
   | Draw of string * int * int * int * int * int * int * int * int
 
 type variable_decl = {
-  name : string;
+  vname : string;
   vtype : datatypes;
 }
 
@@ -51,20 +51,17 @@ type element_decl = {
 }
 
 type molecule_decl = {
-  name : string;
+  mname : string;
   elements: element list;
 }
 
-
-
-
 type par_decl = {
-  name : string; (* Name of the variable *)
-  paramtype : datatypes; (* Name of variable type *)
+  pname : string;
+  ptype : datatypes; 
 }
 
 type func_decl = {
-  name : string;
+  fname : string;
   arguments : par_decl list;
   locals: variable_decl list;
   elements : element_decl list;
@@ -72,15 +69,4 @@ type func_decl = {
   body : statement list;
 }
 
-(* type program = {
-  gdecls : var_decl list;
-  fdecls : func_decl list
-}
- *)
 type program = func_decl list
-
-
-
-
-
-
