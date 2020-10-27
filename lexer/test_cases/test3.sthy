@@ -1,0 +1,9 @@
+def main()
+{
+    int sum;
+    sum=10;
+    while(sum < 1)
+    {
+        sum=sum-1;
+    }
+}

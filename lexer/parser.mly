@@ -36,14 +36,14 @@
 %left MUL DIV MOD
 %nonassoc LPAREN RPAREN
 
-%start salt
-%type <Ast.program> salt
+%start start
+%type <Ast.program> start
 
 %%
 
-salt:
+start:
 								{	[] }
-	|salt fdecl   {($2 :: $1)}
+	|start fdecl   {($2 :: $1)}
 
 variables:
 	 	ID 								{ $1 }
@@ -89,9 +89,10 @@ datatypes:
 
 expr :
 	INTEGER_LITERAL 		{ Int($1) }
+|	DOUBLE_LITERAL			{ Double($1)}
 | variables 					{ String($1) }
 | EQUATION variables LBRACE element_list ARROW element_list RBRACE {Equation ($2, $4, $6) }
-| BALANCE LBRACKET  molecule_list ARROW molecule_list RBRACKET SEMICOLON   {Balance($3,$5)}
+| BALANCE LBRACKET  molecule_list ARROW molecule_list RBRACKET  {Balance($3,$5)}
 | expr ACCESS ATTRIBUTE { Access($1, $3) }
 | expr PLUS expr    { Binop($1, Add, $3) }   
 | expr MINUS expr    { Binop($1, Sub, $3) } 
@@ -111,13 +112,13 @@ expr :
 |	LPAREN expr RPAREN      {Bracket($2)}
 
 e_declaration : 
-ELEMENT ELEMENT_LITERAL LPAREN INTEGER_LITERAL COMMA INTEGER_LITERAL COMMA INTEGER_LITERAL RPAREN SEMICOLON 
+ELEMENT ELEMENT_LITERAL LPAREN INTEGER_LITERAL COMMA DOUBLE_LITERAL COMMA INTEGER_LITERAL RPAREN SEMICOLON 
 	{{ 
 		 name = $2 ;
-	   mass = $4 ; 
-	   electrons = $6 ; 
+	   electrons = $4 ; 
+	   mass = $6 ; 
 	   charge = $8;
-	 }}
+	}}
 
 e_declaration_list:
 				{ [] }

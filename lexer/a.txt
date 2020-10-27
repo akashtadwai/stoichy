@@ -1,4 +1,0 @@
-def first(int a,int b)
-{
-    /*
-}

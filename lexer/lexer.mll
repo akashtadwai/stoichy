@@ -45,14 +45,14 @@ rule tokens = parse
     |"double"               {DOUBLE}
     |"string"               {STRING}
     |"boolean"              {BOOLEAN}
-    |"element"              {printf "element"; ELEMENT }      
+    |"element"              {ELEMENT }      
     |"molecule"             {MOLECULE}
     |"equation"             {EQUATION}
     |"balance"              {BALANCE}
     |"mol_mass"             {MOLAR_MASS}
     |"mol_charge"           {MOL_CHARGE}
     |"mol_electrons"        {MOL_ELECTRON}
-    |"mass"  as attr        {printf "mass";ATTRIBUTE(attr)}
+    |"mass"  as attr        {ATTRIBUTE(attr)}
     |"charge" as attr       {ATTRIBUTE(attr)}
     |"electrons" as attr    {ATTRIBUTE(attr)}
     |"def"                  {FUNCTION} (* diff *)
@@ -66,7 +66,7 @@ rule tokens = parse
     | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
     |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}
-    | (element digit+)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
+    | (element digit*)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
     |['a' - 'z'](character|digit)* as lexemme { ID(lexemme)}
     | eof                       {EOF} 

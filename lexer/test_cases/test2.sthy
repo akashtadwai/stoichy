@@ -1,0 +1,11 @@
+def evennumber(int a)
+{
+    if(a%2==0) // If modulus of number with 2 is zero then number 
+    {
+        print "It is even number";
+    }
+    else 
+    {
+        print "It is odd number";
+    }
+}

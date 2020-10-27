@@ -1,0 +1,7 @@
+def main()
+{
+    element H(1,1.0,0); //Declaring elements
+    element Na(11,23.0,0);
+    element Mg(12,24.0,0);
+    element Cl(17,35.5,0);
+}

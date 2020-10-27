@@ -1,0 +1,5 @@
+def main()
+{
+    molecule NaCl(Na,Cl);
+    molecule H2S1O4(H,H,S,O,O,O,O);
+}
