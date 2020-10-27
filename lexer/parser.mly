@@ -91,6 +91,7 @@ expr :
 	INTEGER_LITERAL 		{ Int($1) }
 | variables 					{ String($1) }
 | EQUATION variables LBRACE element_list ARROW element_list RBRACE {Equation ($2, $4, $6) }
+| BALANCE LBRACKET  molecule_list ARROW molecule_list RBRACKET SEMICOLON   {Balance($3,$5)}
 | expr ACCESS ATTRIBUTE { Access($1, $3) }
 | expr PLUS expr    { Binop($1, Add, $3) }   
 | expr MINUS expr    { Binop($1, Sub, $3) } 

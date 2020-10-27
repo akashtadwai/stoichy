@@ -4,7 +4,7 @@ parser : $(OBJS) # $(cmd)
 lexer.ml:lexer.mll
 	ocamllex lexer.mll
 parser.ml parser.mli:parser.mly
-	ocamlyacc $<
+	ocamlyacc -v $<
 %.cmo : %.ml
 	ocamlc -c $<
 %.cmi : %.mli 

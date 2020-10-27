@@ -72,8 +72,8 @@ rule tokens = parse
     | eof                       {EOF} 
     | _ {printf "Invalid";tokens lexbuf}
 
-   | "/*"		{ print_endline "multiline comments start"; multiline_comment_mode lexbuf }
-    | "//"	{ print_endline "single line comments start";singleline_comment_mode lexbuf }
+    | "/*"		{ print_endline "multiline comments start\n"; multiline_comment_mode lexbuf }
+    | "//"	{ print_endline "single line comments start\n";singleline_comment_mode lexbuf }
     | _ {tokens lexbuf }
 
 and singleline_comment_mode = parse
@@ -82,6 +82,6 @@ and singleline_comment_mode = parse
     | _ {singleline_comment_mode lexbuf }
 
 and multiline_comment_mode = parse
-    "*/"  { Printf.printf "multi comments end\n";tokens lexbuf}
-  | eof   {Printf.printf "error: unterminated comment";EOF}
+    "*/"  { Printf.printf "multi comments end";tokens lexbuf}
+  | eof   {Printf.printf "error: unterminated comment\n";EOF}
   | _ {multiline_comment_mode lexbuf}
