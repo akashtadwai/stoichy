@@ -74,7 +74,7 @@ rule tokens = parse
 
     | "/*"		{ print_endline "multiline comments start\n"; multiline_comment_mode lexbuf }
     | "//"	{ print_endline "single line comments start\n";singleline_comment_mode lexbuf }
-    | _ {tokens lexbuf }
+
 
 and singleline_comment_mode = parse
     '\n'	{printf "single comments end\n";tokens lexbuf}
