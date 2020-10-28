@@ -14,7 +14,7 @@ https://ocaml.org/docs/install.html
 Instructions to Compile:
 
     -> $ make
-    -> $ ./parser < <input_file_name> # we are just redirecting the input. eg: $ ./parser < ./test_cases/test1.sty  
+    -> $ ./parser < <input_file_name> # we are just redirecting the input. eg: $ ./parser < test_cases/test1.sty  
 
     NOTE: The program keeps looking for the tokens hence, to forcely stop press "ctrl+D".
 
