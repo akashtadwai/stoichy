@@ -1,7 +1,4 @@
 def main()
 {
-    //Here we will open a multiline comment and not close it
-    //Error will be printed
-    int a;
-    /* Opened a comment
+#$@!
 }
