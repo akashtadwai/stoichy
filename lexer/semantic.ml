@@ -1,6 +1,6 @@
 open Ast
 open Str
-
+open Printf
 type env = {
 	mutable functions : func_decl list;
 }
@@ -111,6 +111,9 @@ let get_var_type func vname =
 				var.vtype
 		with Not_found -> raise (Failure ("Variable should exist but not found"))
 
+
+
+
 (*Determines if the given identifier exists*)
 let exists_id name func = (exists_variable_decl func name) || (exists_formal_param func name)
 
@@ -189,7 +192,7 @@ let rec valid_expr (func : Ast.func_decl) expr env =
 			end
 	| Asn(id, expr2) ->
 		begin
-			let t1 = get_var_type func id and t2 = get_expr_type expr2 func in 
+			let t1 = (get_var_type func id) and t2 = get_expr_type expr2 func in 
 				match t1,t2 with
 				  StringType, StringType -> true
 				| IntType, IntType -> true
@@ -197,8 +200,6 @@ let rec valid_expr (func : Ast.func_decl) expr env =
 				| ElementType, ElementType -> true
 				| MoleculeType, MoleculeType -> true
 				| EquationType, EquationType -> true
-				| IntType, StringType -> true (* Y? *)
-				| StringType, IntType -> true
 				| _,_ -> raise(Failure ("DataTypes do not match up in an assignment expression to variable "))
 		end
 	| Concat(e1,e2) -> 
