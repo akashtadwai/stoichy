@@ -42,11 +42,6 @@ type variable_decl = {
   vname : string;
   vtype : datatypes;
 }
-type variable_decl_assign = {
-  vname : string;
-  vtype : datatypes;
-  vassign :  expr;
-}
 
 type element_decl = {
   name : string;

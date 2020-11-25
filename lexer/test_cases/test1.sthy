@@ -1,6 +1,6 @@
 def swap(int a,int b)
 {
-    int c; //Defining a third variable for swapping
+    int c;
     c = a;
     a = b;
     b = c;
