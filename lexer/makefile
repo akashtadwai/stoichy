@@ -1,4 +1,4 @@
-OBJS = ast.cmo parser.cmo lexer.cmo semantic.cmo main.cmo 
+OBJS = ast.cmo parser.cmo lexer.cmo helper.cmo semantic.cmo compile.cmo main.cmo 
 
 stoichy: $(OBJS)
 	ocamlc str.cma -o stoichy $(OBJS)
@@ -22,6 +22,8 @@ semantic.cmo : ast.cmi
 semantic.cmx : ast.cmx
 ast.cmi :
 parser.cmi : ast.cmi
+compile.cmo : ast.cmi
+compile.cmx : ast.cmx
 
 .PHONY : clean
 clean:
