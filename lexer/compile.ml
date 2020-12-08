@@ -75,7 +75,7 @@ let rec string_of_expr = function
     | Charge(num) -> num ^ ".charge()"
     | Electrons(num) -> num ^ ".electrons()" 
      | Bracket(e) -> "(" ^ string_of_expr e ^ ")"
-       | Balance(llist, rlist) -> "Balance(\"" ^  String.concat " , " (List.map string_of_molecule llist) ^ " == " ^ String.concat " , " (List.map string_of_molecule rlist) ^ "\")"
+    | Balance(llist, rlist) -> "Balance(\"" ^  String.concat " " (List.map string_of_molecule llist) ^ "==" ^ String.concat " " (List.map string_of_molecule rlist) ^ "\")"
 
 
 let string_of_edecl edecl = "Element " ^ edecl.name ^ "= new Element(" ^ (string_of_float edecl.mass) ^ "," ^ (string_of_int edecl.electrons) ^ "," ^ (string_of_int edecl.charge) ^ ");\n" 

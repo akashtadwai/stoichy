@@ -1,5 +1,6 @@
 def main()
 {
-    molecule NaCl(Na,Cl);
-    molecule H2S1O4(H,H,S,O,O,O,O);
+    string eq;
+	eq = balance[HNO3, Cu1 --> CuN2O6, H2O, NO];
+	print eq;
 }
