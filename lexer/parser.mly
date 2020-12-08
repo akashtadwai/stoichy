@@ -111,7 +111,9 @@ expr :
 | variables ASSIGN expr {Asn($1,$3)}
 |	LPAREN expr RPAREN      {Bracket($2)}
 | CALL variables LPAREN actuals_opt RPAREN { Call($2, $4) }
-
+	| CHARGE LPAREN	variables RPAREN										{ Charge($3) }
+	| MASS LPAREN	variables RPAREN										{ Mass($3) }
+	| ELECTRONS LPAREN	variables RPAREN									{ Electrons($3) }
 actuals_opt:
 	  /* nothing */ 				{ [] }
 	| actuals_list  				{ List.rev $1 }

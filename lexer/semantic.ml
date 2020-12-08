@@ -159,7 +159,12 @@ let rec get_expr_type e func =
 		| Asn(expr, expr2) -> get_expr_type expr2 func
 		| Concat(s, s2) -> StringType
 		| Bracket(e1) -> get_expr_type e1 func
-		| Access(id,attr) -> IntType (* Call only returns mass, charge, or electrons *)
+		| Access(id,attr) ->  (* Call only returns mass, charge, or electrons *)
+			begin 
+				match attr with 
+				  "mass"  -> DoubleType 
+				| _ -> IntType 
+			end
 		| Equation (_, _, _) -> EquationType
 		| Balance (_, _) -> StringType
 		| Print _ -> StringType
@@ -167,7 +172,7 @@ let rec get_expr_type e func =
 		| Call (_, _) -> IntType
 		| Charge _ -> IntType (* change type *)
 		| Electrons _ -> IntType
-		| Mass _ -> IntType
+		| Mass _ -> DoubleType
 		| Null -> IntType
 		| Noexpr -> IntType
 

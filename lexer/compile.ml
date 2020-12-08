@@ -136,8 +136,6 @@ let contains s1 s2 =
         with Not_found -> false
 
 let program program prog_name =
-    let graphic_boolean a b = 
-        if (contains (string_of_fdecl_list program) "graphics") then a else b in
      let prog_string = Helper.balance_head ^ prog_name ^ Helper.balance_mid  ^ Helper.balance_mid1 ^ prog_name ^ Helper.balance_mid15 ^ Helper.balance_mid2 ^ (string_of_fdecl_list program) ^ Helper.balance_end in
        let out_chan = open_out (Printf.sprintf "%s.java" prog_name) in
           ignore(Printf.fprintf out_chan "%s" prog_string); 
