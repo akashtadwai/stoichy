@@ -1,37 +1,29 @@
-let balance_head = "import com.graphics.*;
+import com.graphics.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class "
-
-let balance_mid = "{"
-
-let balance_mid1 = "
+public class check{
     public static boolean debug = false;
     public static int randx;
     public static int randy;
     
-    public "
-
-let balance_mid15 = "(){"
-
-let balance_mid2 = "} public static String Balance(String s)
+    public check(){} public static String Balance(String s)
     {
-        String output = \"\";
+        String output = "";
         System.out.println(s);
-        String[] r = s.split(\"(, )|(== )\");
-        String[] r1 = s.split(\"\\\\s*(,|\\\\s)\\\\s*\");
-        String[] r2 = s.split(\"(, )|(' ')\");
-        String[] individual = s.split(\"(, )|(== )|(?=\\\\p{Upper})|(' ')\");
+        String[] r = s.split("(, )|(== )");
+        String[] r1 = s.split("\\s*(,|\\s)\\s*");
+        String[] r2 = s.split("(, )|(' ')");
+        String[] individual = s.split("(, )|(== )|(?=\\p{Upper})|(' ')");
         
         ArrayList<String> elements = new ArrayList<String>();
 
         int counter = 0;
         for(int i=0; i<r2.length; i++){
-            if(r2[i].contains(\"=\"))
+            if(r2[i].contains("="))
                 counter = i;
         }
         counter++;
@@ -39,29 +31,29 @@ let balance_mid2 = "} public static String Balance(String s)
         {
             System.out.println(r[i]);
         }
-        System.out.println(\"aaaa\\n\");
+        System.out.println("aaaa\n");
         for(int i=0;i<r1.length;i++)
         {
             System.out.println(r1[i]);
         }
-        System.out.println(\"bbbb\\n\");
+        System.out.println("bbbb\n");
         for(int i=0;i<r2.length;i++)
         {
             System.out.println(r2[i]);
         }
-        System.out.println(\"cccc\\n\");
+        System.out.println("cccc\n");
         for(int i=0;i<individual.length;i++)
         {
             System.out.println(individual[i]);
         }
-        System.out.println(\"dddd\\n\");
+        System.out.println("dddd\n");
         for (int i = 0; i < individual.length; i++) {
-            String x = \"\";
+            String x = "";
             for (int j = 0; j < individual[i].length(); j++) {
                 if (Character.isLetter(individual[i].charAt(j)))
                     x = x + individual[i].charAt(j);
             }
-            if (!elements.contains(x) && (x != \"\"))
+            if (!elements.contains(x) && (x != ""))
                 elements.add(x);
         }
 
@@ -76,7 +68,7 @@ let balance_mid2 = "} public static String Balance(String s)
                         k = 0;
                     }
                     if (Character.isDigit(r[j].charAt(k))) {
-                        String str=\"\";
+                        String str="";
                         int p;
                         for(p=k;r[j].length>p &&Character.isDigit(r[j].charAt(p));p++)
                         {
@@ -205,18 +197,18 @@ let balance_mid2 = "} public static String Balance(String s)
         boolean subtract = false;
         for(int j = 0; j < r1.length; j++)
         {
-            if(r1[j].equals(\"==\"))
+            if(r1[j].equals("=="))
             {
-                output += \"--> \";
+                output += "--> ";
                 subtract = true;
             }
             else if (subtract == true)
             {
-                output += (final_coeff[j-1]/f) + \" \" + r1[j] + \" \";
+                output += (final_coeff[j-1]/f) + " " + r1[j] + " ";
             }
             else
             {
-                output += (final_coeff[j]/f) + \" \" + r1[j] + \" \";
+                output += (final_coeff[j]/f) + " " + r1[j] + " ";
             }
         }
         return output;
@@ -256,9 +248,9 @@ let balance_mid2 = "} public static String Balance(String s)
         {
             for(int j = 0; j< matrix[0].length; j++)
             {
-                System.out.print(matrix[i][j] + \" \");
+                System.out.print(matrix[i][j] + " ");
             }
-            System.out.print(\"\\n\");
+            System.out.print("\n");
         }
     }
 
@@ -308,11 +300,11 @@ let balance_mid2 = "} public static String Balance(String s)
        int columnsInA = a[0].length; // same as rows in B
        int columnsInB = b[0].length;
        System.out.print(rowsInA);
-       System.out.println(\"r A\");
+       System.out.println("r A");
        System.out.print(columnsInA);
-       System.out.println(\"C A\");
+       System.out.println("C A");
        System.out.print(columnsInB);
-       System.out.println(\"C A\");
+       System.out.println("C A");
        double[][] c = new double[rowsInA][columnsInB];
        for (int i = 0; i < rowsInA; i++) {
          for (int j = 0; j < columnsInB; j++) {
@@ -454,5 +446,21 @@ public static double[][] invert(double a[][])
                         a[index[i]][l] -= pj*a[index[j]][l];
                 }
             }   
-        }"
-let balance_end = "}" 
+        }public static void main(String args[])
+{
+String eq;Element H= new Element(2.,1,1);
+Element O= new Element(16.,8,2);
+Element Br= new Element(32.,16,2);
+Element S= new Element(16.,8,2);
+Element Mn= new Element(55.,25,2);
+Element K= new Element(39.,19,1);
+ArrayList<Element> H2SO41 = new ArrayList<Element>(Arrays.asList(O,O,O,O,S,H,H));
+Molecule H2SO4= new Molecule(H2SO41);
+ArrayList<Element> KBr1 = new ArrayList<Element>(Arrays.asList(Br,K));
+Molecule KBr= new Molecule(KBr1);
+ArrayList<Element> KMnO41 = new ArrayList<Element>(Arrays.asList(O,O,O,O,Mn,K));
+Molecule KMnO4= new Molecule(KMnO41);
+eq = Balance("C6H12O6 , O2 == H2O , CO2");
+System.out.println(eq);
+}
+}

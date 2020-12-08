@@ -1,7 +1,18 @@
 def main()
 {
-    element H(1,1.0,0); //Declaring elements
-    element Na(11,23.0,0);
-    element Mg(12,24.0,0);
-    element Cl(17,35.5,0);
+
+string eq ;
+element S ( 8,16.0,2) ;
+element Br ( 16, 32.0 , 2 ) ;
+element Mn ( 25 , 55.0 , 2 ) ;
+element O (8 , 16.0 , 2) ;
+element K (19 , 39.0 , 1) ;
+element H (1 , 2.0 , 1) ;
+molecule KBr (K,Br) ;
+molecule KMnO4 (K, Mn, O, O, O, O) ;
+molecule H2SO4 (H, H, S , O, O, O, O) ;
+//eq = balance [KBr,KMnO4,H2SO4 --> Br2,MnSO4,K2SO4,H2O] ;
+eq=balance[C2H6, O2 --> CO2,H2O];
+print eq;
+
 }
