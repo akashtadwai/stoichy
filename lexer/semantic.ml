@@ -288,7 +288,7 @@ let valid_body func env =
 					| IntType -> true
 					| _ -> raise( Failure("Print in function \"" ^ func.fname ^ "\" does not match string type") )
 			end
-		| Draw(_, e1, e2, e3, e4, e5, e6, e7, e8) -> true (* remove for now *)
+
 	in
 		let _ = List.map(fun s -> check_stmt s) func.body in
 			true
