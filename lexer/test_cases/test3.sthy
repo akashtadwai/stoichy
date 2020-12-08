@@ -1,9 +1,29 @@
+/* Test 3: Arithmetic Expressions */
+
 def main()
 {
-    int sum;
-    sum=10;
-    while(sum < 1)
-    {
-        sum=sum-1;
-    }
+	print 0;
+	print 1;
+
+	/* Plus, minus, multiply, divide, mod */
+	print 1+1;
+	print 4-1;
+	print 2*2;
+	print 15/3;
+	print 41%7;
+
+	/* Precedence */
+	print 90-6*8;
+
+	/* Parenthesis */
+	print (1+2*3-4)*28/2;
+	print "Hello";
+	/* Negative Numbers */
+	// print -3-39;
+	// print 14*-3;
+
+	/* Decimals */
+	// print 2.1;
+	// print 5.0/2.0;
+	// print 42.0/99.0;
 }

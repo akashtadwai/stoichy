@@ -78,12 +78,12 @@ let balance_mid2 = "} public static String Balance(String s)
                     if (Character.isDigit(r[j].charAt(k))) {
                         String str=\"\";
                         int p;
-                        for(p=k;r[j].length>p &&Character.isDigit(r[j].charAt(p));p++)
+                        for(p=k;r[j].length()>p &&Character.isDigit(r[j].charAt(p));p++)
                         {
-                            str+='0'+r[j].charAt(p);
+                            str+=r[j].charAt(p);
                         }
                         System.out.println(str);
-                        int dig = Integer.parseInt(r[j].substring(k, k + 1));
+                        int dig = Integer.parseInt(str);
                         matrix[i][j] = dig;
                     } else {
                         matrix[i][j] = 1;

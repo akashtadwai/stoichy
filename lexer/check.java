@@ -70,12 +70,12 @@ public class check{
                     if (Character.isDigit(r[j].charAt(k))) {
                         String str="";
                         int p;
-                        for(p=k;r[j].length>p &&Character.isDigit(r[j].charAt(p));p++)
+                        for(p=k;r[j].length()>p &&Character.isDigit(r[j].charAt(p));p++)
                         {
-                            str+='0'+r[j].charAt(p);
+                            str+=r[j].charAt(p);
                         }
                         System.out.println(str);
-                        int dig = Integer.parseInt(r[j].substring(k, k + 1));
+                        int dig = Integer.parseInt(str);
                         matrix[i][j] = dig;
                     } else {
                         matrix[i][j] = 1;
@@ -448,19 +448,15 @@ public static double[][] invert(double a[][])
             }   
         }public static void main(String args[])
 {
-String eq;Element H= new Element(2.,1,1);
-Element O= new Element(16.,8,2);
-Element Br= new Element(32.,16,2);
-Element S= new Element(16.,8,2);
-Element Mn= new Element(55.,25,2);
-Element K= new Element(39.,19,1);
-ArrayList<Element> H2SO41 = new ArrayList<Element>(Arrays.asList(O,O,O,O,S,H,H));
-Molecule H2SO4= new Molecule(H2SO41);
-ArrayList<Element> KBr1 = new ArrayList<Element>(Arrays.asList(Br,K));
-Molecule KBr= new Molecule(KBr1);
-ArrayList<Element> KMnO41 = new ArrayList<Element>(Arrays.asList(O,O,O,O,Mn,K));
-Molecule KMnO4= new Molecule(KMnO41);
-eq = Balance("C6H12O6 , O2 == H2O , CO2");
-System.out.println(eq);
+System.out.println(0);
+System.out.println(1);
+System.out.println(1 + 1);
+System.out.println(4 - 1);
+System.out.println(2 * 2);
+System.out.println(15 / 3);
+System.out.println(41 % 7);
+System.out.println(90 - 6 * 8);
+System.out.println((1 + 2 * 3 - 4) * 28 / 2);
+System.out.println("Hello");
 }
 }
