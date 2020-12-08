@@ -1,0 +1,14 @@
+def hey(string x)
+{
+	string y;
+    int p;
+	print "hello";
+	y = "hello";
+}
+
+def main()
+{
+	string y;
+	y = "hello";
+	call hey(y);
+}

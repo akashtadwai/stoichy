@@ -6,7 +6,7 @@ let digit  = ['0'-'9']
 let character = ['A'-'Z' 'a'-'z']   
 let element = ['A'-'Z']['a'-'z']?
 rule tokens = parse
-    [' ' '\t' '\r' '\n']					{ tokens lexbuf }
+    [' ' '\t' '\r' '\n']	{ tokens lexbuf }
     |';'                    {SEMICOLON }
     |':'                    {COLON} 
     |'"'                    {APOS}   
@@ -60,7 +60,6 @@ rule tokens = parse
     |"return"               {RETURN}
     |"print"                {PRINT}   
     |"call"                 {CALL}
-    |"draw"                 {DRAW}
 	|"true"			   	    {TRUE}
     |"false"	            {FALSE}
     | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}

@@ -110,6 +110,15 @@ expr :
 | expr CONCATENATE expr    { Concat($1, $3) } 
 | variables ASSIGN expr {Asn($1,$3)}
 |	LPAREN expr RPAREN      {Bracket($2)}
+| CALL variables LPAREN actuals_opt RPAREN { Call($2, $4) }
+
+actuals_opt:
+	  /* nothing */ 				{ [] }
+	| actuals_list  				{ List.rev $1 }
+
+actuals_list:
+	  expr                    		{ [$1] }
+	| actuals_list COMMA expr 		{ $3 :: $1 }
 
 e_declaration : 
 ELEMENT ELEMENT_LITERAL LPAREN INTEGER_LITERAL COMMA DOUBLE_LITERAL COMMA INTEGER_LITERAL RPAREN SEMICOLON 

@@ -36,7 +36,6 @@ type statement =
   | For of expr * expr * expr * statement
   | While of expr * statement
   | Print of expr
-  | Draw of string * int * int * int * int * int * int * int * int
 
 type variable_decl = {
   vname : string;
