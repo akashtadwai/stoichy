@@ -1,6 +1,9 @@
 def main()
 {
     string eq;
+	string eqq;
 	eq = balance[HNO3, Cu1 --> CuN2O6, H2O, NO];
-	print eq;
+    print eq;
+	eqq = balance[H2--> O2];
+	print eqq;
 }

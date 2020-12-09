@@ -22,8 +22,10 @@ def main():
     eqn = ''.join(str(e) for e in lst)
     eqn_final = eqn.split('==')
     lhs_strings = eqn_final[0].split()
+    lhs_strings.reverse()
     lhs_compounds = [parse_compound(compound) for compound in lhs_strings]
     rhs_strings = eqn_final[1].split()
+    rhs_strings.reverse()
     rhs_compounds = [parse_compound(compound) for compound in rhs_strings]
     # Get canonical list of elements
     els = sorted(set().union(*lhs_compounds, *rhs_compounds))
@@ -44,9 +46,12 @@ def main():
             A[row][col] = -num   # invert coefficients for RHS
 
     # Solve using Sympy for absolute-precision math
-    A = sympy.Matrix(A)    
+    A = sympy.Matrix(A)  
+    if not A.nullspace():
+        print("Invalid Equation!!!")
+        return   
     # find first basis vector == primary solution
-    coeffs = A.nullspace()[0]    
+    coeffs = A.nullspace()[0]
     # find least common denominator, multiply through to convert to integer solution
     coeffs *= sympy.lcm([term.q for term in coeffs])
 

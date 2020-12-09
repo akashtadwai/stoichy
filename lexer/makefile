@@ -27,7 +27,7 @@ compile.cmx : ast.cmx
 
 .PHONY : clean
 clean:
-	rm -rf parser.mli lexer.ml parser.ml *.cmi *.cmo stoichy
+	rm -rf parser.mli lexer.ml parser.ml *.cmi *.cmo stoichy *.class  *.java
 
 # ocamlyacc parser.mly  	parser.mli rpcal.ml
 # ocamlc -c parser.mli   	parser.cmi
