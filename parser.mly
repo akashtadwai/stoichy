@@ -90,6 +90,7 @@ datatypes:
 expr :
 	INTEGER_LITERAL 		{ Int($1) }
 |	DOUBLE_LITERAL			{ Double($1)}
+| BOOLEAN_LITERAL     { Bool($1)}
 | variables 					{ String($1) }
 | EQUATION variables LBRACE element_list ARROW element_list RBRACE {Equation ($2, $4, $6) }
 | BALANCE LBRACKET  molecule_list ARROW molecule_list RBRACKET  {Balance($3,$5)}

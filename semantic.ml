@@ -153,6 +153,7 @@ let rec get_expr_type e func =
 		| String(s) -> StringType
 		| Int(s) -> IntType
 		| Double(f) -> DoubleType
+		| Bool (s) -> BooleanType
 		| Boolean(_,_,_) -> BooleanType
 		| Binop(e1,_,e2) -> get_expr_type e1 func
 		| Brela(e1,_,e2) -> BooleanType
@@ -207,6 +208,7 @@ let rec valid_expr (func : Ast.func_decl) expr env =
 				| EquationType, EquationType -> true
 				| IntType, StringType -> true
 				| StringType, IntType -> true
+				| BooleanType,BooleanType ->true
 				| _,_ -> raise(Failure ("DataTypes do not match up in an assignment expression to variable "))
 		end
 	| Concat(e1,e2) -> 
@@ -293,6 +295,7 @@ let valid_body func env =
 				match expr_type with
 					  StringType -> true
 					| IntType -> true
+					| BooleanType ->true
 					| _ -> raise( Failure("Print in function \"" ^ func.fname ^ "\" does not match string type") )
 			end
 

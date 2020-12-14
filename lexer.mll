@@ -60,8 +60,8 @@ rule tokens = parse
     |"return"               {RETURN}
     |"print"                {PRINT}   
     |"call"                 {CALL}
-	|"true"			   	    {TRUE}
-    |"false"	            {FALSE}
+	|"true" as lexemme		{BOOLEAN_LITERAL(bool_of_string lexemme)}
+    |"false" as lexemme	    {BOOLEAN_LITERAL(bool_of_string lexemme)}
     | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
     |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}

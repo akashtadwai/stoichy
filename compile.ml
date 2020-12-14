@@ -39,9 +39,9 @@ let string_of_re = function
   And -> "&&"
   | Or -> "||"
 
-let string_of_boolean = function
+(* let string_of_boolean = function
   True -> string_of_bool true
-  | False -> string_of_bool false
+  | False -> string_of_bool false *)
 
 let string_of_element = function
    Element(e)-> e
@@ -54,6 +54,7 @@ let string_of_mdecl_balance mdecl = mdecl.mname
 let rec string_of_expr = function
   Int(i) -> string_of_int i
   | Double(d) -> string_of_float d
+  | Bool (b) -> string_of_bool b
   | Boolean(e1, rop, e2) -> string_of_expr e1 ^ string_of_rop rop ^ string_of_expr e2
   | String (s) -> s
   | Asn(id, left) -> id ^ " = " ^ (string_of_expr left)

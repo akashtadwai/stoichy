@@ -1,7 +1,7 @@
 type operator = Add | Sub | Mul | Div | Mod
 type rop = Eq | Neq | Lt | Ltq | Gt | Gtq 
 type re = And | Or
-type bool = True | False
+(* type bool = True | False *)
 type datatypes = IntType | BooleanType | StringType | DoubleType | ElementType | MoleculeType | EquationType
 type element = Element of string
 type molecule = Molecule of string
@@ -11,6 +11,7 @@ type expr =
   | Brela of expr * re * expr
   | Int of int
   | String of string 
+  | Bool of bool
   | Boolean of expr * rop * expr
   | Double of float
   | Asn of string * expr
