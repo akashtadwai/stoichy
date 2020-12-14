@@ -66,10 +66,11 @@ rule tokens = parse
     |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
     | element as lexemme       {ELEMENT_LITERAL(lexemme)}
     | (element digit*)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
+    | '"' [^'"' '\n']                   {printf "Unterminated string constant \n";exit(1)}
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
     |['a' - 'z'](character|digit)* as lexemme { ID(lexemme)}
     | eof                       {EOF} 
-    | _ {printf "Invalid token \n ";tokens lexbuf}
+    | _ {printf "Invalid token \n ";exit(1)}
 
     | "/*"		{multiline_comment_mode lexbuf }
     | "//"	{singleline_comment_mode lexbuf }
@@ -82,5 +83,5 @@ and singleline_comment_mode = parse
 
 and multiline_comment_mode = parse
     "*/"  {tokens lexbuf}
-  | eof   {EOF}
+  | eof   {printf "Unterminated multi-line comment \n";exit(1)}
   | _ {multiline_comment_mode lexbuf}
