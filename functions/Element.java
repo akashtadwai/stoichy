@@ -1,4 +1,4 @@
-package com.graphics;
+package functions;
 import java.util.Scanner;
 import java.util.*;
 import java.io.File;
@@ -13,7 +13,7 @@ public class Element
 	private int charge;
 	private double mass;
 	private int electrons;
-	public Element(double mass, int charge, int electrons)
+	public Element( int electrons, double mass, int charge)
 	{
 		this.mass = mass;
 		this.charge = charge;

@@ -1,4 +1,4 @@
-package com.graphics;
+package functions;
 import java.util.ArrayList;
 
 public class Molecule
@@ -8,7 +8,7 @@ public class Molecule
 	{
 		elements = element_list;
 	}
-	public int mass()
+	public double mass()
 	{
 		int sum = 0;
 		for(int i = 0; i < elements.size(); i++)

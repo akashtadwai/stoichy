@@ -2,6 +2,7 @@ OBJS = ast.cmo parser.cmo lexer.cmo helper.cmo semantic.cmo compile.cmo main.cmo
 
 stoichy: $(OBJS)
 	ocamlc str.cma -o stoichy $(OBJS)
+	javac functions/*.java
 
 lexer.ml:lexer.mll
 	ocamllex lexer.mll
@@ -27,7 +28,7 @@ compile.cmx : ast.cmx
 
 .PHONY : clean
 clean:
-	rm -rf parser.mli lexer.ml parser.ml *.cmi *.cmo stoichy *.class  *.java
+	rm -rf stoichy parser.mli lexer.ml parser.ml *.cmi *.cmo *.output functions/*.class demo/*.out stoichy *.class  *.java
 
 # ocamlyacc parser.mly  	parser.mli rpcal.ml
 # ocamlc -c parser.mli   	parser.cmi

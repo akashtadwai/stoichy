@@ -1,4 +1,4 @@
-let balance_head = "import com.graphics.*;
+let balance_head = "import functions.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;

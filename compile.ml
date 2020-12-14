@@ -78,11 +78,11 @@ let rec string_of_expr = function
     | Balance(llist, rlist) -> "Balance(\"" ^  String.concat " " (List.map string_of_molecule llist) ^ "==" ^ String.concat " " (List.map string_of_molecule rlist) ^ "\")"
 
 
-let string_of_edecl edecl = "Element " ^ edecl.name ^ "= new Element(" ^ (string_of_float edecl.mass) ^ "," ^ (string_of_int edecl.electrons) ^ "," ^ (string_of_int edecl.charge) ^ ");\n" 
+let string_of_edecl edecl = "Element " ^ edecl.name ^ "= new Element(" ^ (string_of_int edecl.electrons)^ "," ^ (string_of_float edecl.mass) ^ "," ^ (string_of_int edecl.charge) ^ ");\n" 
 let string_of_mdecl mdecl =  "ArrayList<Element> " ^ mdecl.mname ^ "1 = new ArrayList<Element>(Arrays.asList(" ^ String.concat "," (List.map string_of_element mdecl.elements) ^ "));\n" ^ 
 "Molecule " ^ mdecl.mname ^ "= new Molecule("^ mdecl.mname ^ "1);\n"
 
-let string_of_pdecl pdecl = string_of_type pdecl.ptype ^ " " ^ pdecl.pname 
+let string_of_pdecl pdecl = string_of_type pdecl.ptype ^ " " ^ pdecl.pname  
 let string_of_pdecl_list pdecl_list = String.concat "" (List.map string_of_pdecl pdecl_list)
 let string_of_vdecl vdecl = string_of_type vdecl.vtype ^ " " ^ vdecl.vname ^ ";\n" 
 

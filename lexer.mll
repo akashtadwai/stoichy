@@ -69,18 +69,18 @@ rule tokens = parse
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}
     |['a' - 'z'](character|digit)* as lexemme { ID(lexemme)}
     | eof                       {EOF} 
-    | _ {printf "Invalid";tokens lexbuf}
+    | _ {printf "Invalid token \n ";tokens lexbuf}
 
-    | "/*"		{ print_endline "multiline comments start\n"; multiline_comment_mode lexbuf }
-    | "//"	{ print_endline "single line comments start\n";singleline_comment_mode lexbuf }
+    | "/*"		{multiline_comment_mode lexbuf }
+    | "//"	{singleline_comment_mode lexbuf }
 
 
 and singleline_comment_mode = parse
-    '\n'	{printf "single comments end\n";tokens lexbuf}
-    | eof   {printf "comments end\n";EOF}
+    '\n'	{tokens lexbuf}
+    | eof   {EOF}
     | _ {singleline_comment_mode lexbuf }
 
 and multiline_comment_mode = parse
-    "*/"  { Printf.printf "multi comments end";tokens lexbuf}
-  | eof   {Printf.printf "error: unterminated comment\n";EOF}
+    "*/"  {tokens lexbuf}
+  | eof   {EOF}
   | _ {multiline_comment_mode lexbuf}
