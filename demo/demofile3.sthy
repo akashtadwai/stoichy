@@ -7,10 +7,10 @@ def main()
     a = 10;
     i = 0;
     j = 0;
-    
+
     while (i<=a)
     {
-        temp = i-1;
+        temp = i - 1;
         print temp;
         i=i+1;
     }
@@ -20,4 +20,5 @@ def main()
         temp = i*1;
         print temp;
     }
+    
 }

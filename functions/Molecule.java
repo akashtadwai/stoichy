@@ -10,7 +10,7 @@ public class Molecule
 	}
 	public double mass()
 	{
-		int sum = 0;
+		double sum = 0;
 		for(int i = 0; i < elements.size(); i++)
 		{
 			sum += elements.get(i).mass();

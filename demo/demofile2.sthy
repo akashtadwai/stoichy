@@ -17,4 +17,6 @@ def main()
     b = 5;
     call checkeven(a);      // Calling checheven function
     call checkeven(b);      // Calling checheven function
+    print a>2;
+    print b<=7;
 }

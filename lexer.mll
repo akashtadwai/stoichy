@@ -62,9 +62,9 @@ rule tokens = parse
     |"call"                 {CALL}
 	|"true" as lexemme		{BOOLEAN_LITERAL(bool_of_string lexemme)}
     |"false" as lexemme	    {BOOLEAN_LITERAL(bool_of_string lexemme)}
-    | (digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
-    |digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
-    | element as lexemme       {ELEMENT_LITERAL(lexemme)}
+    | "-"?(digit)+ '.'(digit)+ as lexemme  {DOUBLE_LITERAL(float_of_string lexemme)}
+    |  "-"?digit+ as lexemme         {INTEGER_LITERAL(int_of_string lexemme)}
+    |  element as lexemme       {ELEMENT_LITERAL(lexemme)}
     | (element digit*)+ as lexemme         {MOLECULE_LITERAL(lexemme)}
     | '"' [^'"' '\n']                   {printf "Unterminated string constant \n";exit(1)}
     | '"' [^'"' '\n']*'"' as lexemme           {STRING_LITERAL(lexemme)}

@@ -1,4 +1,4 @@
-def swap(int a,int b)
+def main(int a)
 {
-   
+    
 }
