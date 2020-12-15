@@ -10,7 +10,7 @@ def main()
 
     while (i<=a)
     {
-        temp = i - 1;
+        temp = i-a;
         print temp;
         i=i+1;
     }
