@@ -1,64 +1,70 @@
 # Find minimum integer coefficients for a chemical reaction like
-#   A * NaOH + B * H2SO4 -> C * Na2SO4 + D * H20
+#   a C6H12O6+ b  O2 -> c CO2 + d H20
 import os 
 import sympy
-import re
+import re as regex
 import os
 import sys 
 
-# match a single element and optional count, like Na2
-ELEMENT_CLAUSE = re.compile("([A-Z][a-z]?)([0-9]*)")
+# matching a single element and optional count, like C6
+element = regex.compile("([A-Z][a-z]?)([0-9]*)")
 
-def parse_compound(compound):
-    """
-    Given a chemical compound like Na2SO4,
-    return a dict of element counts like {"Na":2, "S":1, "O":4}
-    """
-    assert "(" not in compound, "This parser doesn't grok subclauses"
-    return {el: (int(num) if num else 1) for el, num in ELEMENT_CLAUSE.findall(compound)}
+class BalanceEquation():
 
-def main():
-    lst = [' {0} '.format(elem) for elem in sys.argv[1:]]
-    eqn = ''.join(str(e) for e in lst)
-    eqn_final = eqn.split('==')
-    lhs_strings = eqn_final[0].split()
-    lhs_strings.reverse()
-    lhs_compounds = [parse_compound(compound) for compound in lhs_strings]
-    rhs_strings = eqn_final[1].split()
-    rhs_strings.reverse()
-    rhs_compounds = [parse_compound(compound) for compound in rhs_strings]
-    # Get canonical list of elements
-    els = sorted(set().union(*lhs_compounds, *rhs_compounds))
-    els_index = dict(zip(els, range(len(els))))
+    def parse_compound(self,compound):
+        """
+        Given a chemical compound like C6H12O6,
+        return a dictionary of element counts like {"C":6, "H":12, "O":6}
+        """
+        assert "(" not in compound, "This parser doesn't work with subclauses such as (OH)2"
+        return {el: (int(num) if num else 1) for el, num in element.findall(compound)}
 
-    # Build matrix to solve
-    w = len(lhs_compounds) + len(rhs_compounds)
-    h = len(els)
-    A = [[0] * w for _ in range(h)]
-    # load with element coefficients
-    for col, compound in enumerate(lhs_compounds):
-        for el, num in compound.items():
-            row = els_index[el]
-            A[row][col] = num
-    for col, compound in enumerate(rhs_compounds, len(lhs_compounds)):
-        for el, num in compound.items():
-            row = els_index[el]
-            A[row][col] = -num   # invert coefficients for RHS
+    def balance(self):
+        """
+        Taking arguments from java file and separting LHS and RHS
+        """
+        lst = [' {0} '.format(elem) for elem in sys.argv[1:]]
+        eqn = ''.join(str(e) for e in lst)
+        eqn_final = eqn.split('==')
+        lhs_strings = eqn_final[0].split()
+        lhs_strings.reverse()
+        lhs_compounds = [self.parse_compound(compound) for compound in lhs_strings]
+        rhs_strings = eqn_final[1].split()
+        rhs_strings.reverse()
+        rhs_compounds = [self.parse_compound(compound) for compound in rhs_strings]
+        # Get list of elements
+        els = sorted(set().union(*lhs_compounds, *rhs_compounds))
+        els_index = dict(zip(els, range(len(els))))
 
-    # Solve using Sympy for absolute-precision math
-    A = sympy.Matrix(A)  
-    if not A.nullspace():
-        print("Invalid Equation!!!")
-        return   
-    # find first basis vector == primary solution
-    coeffs = A.nullspace()[0]
-    # find least common denominator, multiply through to convert to integer solution
-    coeffs *= sympy.lcm([term.q for term in coeffs])
+        # Building matrix to solve
+        w = len(lhs_compounds) + len(rhs_compounds)
+        h = len(els)
+        A = [[0] * w for _ in range(h)]
+        # load with element coefficients
+        for col, compound in enumerate(lhs_compounds):
+            for el, num in compound.items():
+                row = els_index[el]
+                A[row][col] = num
+        for col, compound in enumerate(rhs_compounds, len(lhs_compounds)):
+            for el, num in compound.items():
+                row = els_index[el]
+                A[row][col] = -num   # invert coefficients for RHS
 
-    # Display result
-    lhs = " + ".join(["{} {}".format(coeffs[i], s) for i, s in enumerate(lhs_strings)])
-    rhs = " + ".join(["{} {}".format(coeffs[i], s) for i, s in enumerate(rhs_strings, len(lhs_strings))])
-    print("{} --> {}".format(lhs, rhs))
+        # Solve using Sympy for absolute-precision math
+        A = sympy.Matrix(A)  
+        if not A.nullspace():
+            print("Invalid Equation!!!")
+            return   
+        # finding first basis vector == primary solution
+        coeffs = A.nullspace()[0]
+        # finding least common denominator, multiply through to convert to integer solution
+        coeffs *= sympy.lcm([term.q for term in coeffs])
+
+        # Displaying result
+        lhs = " + ".join(["{} {}".format(coeffs[i], s) for i, s in enumerate(lhs_strings)])
+        rhs = " + ".join(["{} {}".format(coeffs[i], s) for i, s in enumerate(rhs_strings, len(lhs_strings))])
+        print("{} --> {}".format(lhs, rhs))
 
 if __name__ == "__main__":
-    main()
+    Equation=BalanceEquation()
+    Equation.balance()
