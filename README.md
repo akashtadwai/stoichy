@@ -14,7 +14,6 @@ As we have written Code generation in Java, Java is a prereq. For installing jav
 * ```$ sudo su```
 * ```$ bash prereqs.sh```  
 
-
 ## Instructions to Compile
 
 1. ```$ make```  
@@ -24,9 +23,8 @@ As we have written Code generation in Java, Java is a prereq. For installing jav
 3. ```$ make clean # To clean all files```
 
 To run all the tests at once and see the output run,  
-> ```$ bash run_tests.sh```    
+> ```$ bash run_tests.sh```
   
-
 ## Contributors  
 
 1. [Vamshi Krishna Reddy K](https://github.com/kvkr3003)  
@@ -38,4 +36,3 @@ To run all the tests at once and see the output run,
 4. [Havya Karuturi](https://github.com/havya7)  
 
 5. [Sai Varshittha Ponnam](https://github.com/saivarshittha)
- 
