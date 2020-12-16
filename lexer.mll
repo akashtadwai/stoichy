@@ -2,9 +2,12 @@
     open Printf
     open Parser
 }
-let digit  = ['0'-'9']
+
 let character = ['A'-'Z' 'a'-'z']   
 let element = ['A'-'Z']['a'-'z']?
+let digit  = ['0'-'9']
+
+(* tokenising symbols,operators,keywords,numbers,strings  *)
 rule tokens = parse
     [' ' '\t' '\r' '\n']	{ tokens lexbuf }
     |';'                    {SEMICOLON }
@@ -76,11 +79,15 @@ rule tokens = parse
     | "//"	{singleline_comment_mode lexbuf }
 
 
+
+    (* Single line comments *)
 and singleline_comment_mode = parse
     '\n'	{tokens lexbuf}
     | eof   {EOF}
-    | _ {singleline_comment_mode lexbuf }
+    | _ {singleline_comment_mode lexbuf } 
 
+
+        (* Multi line comments *)
 and multiline_comment_mode = parse
     "*/"  {tokens lexbuf}
   | eof   {printf "Unterminated multi-line comment \n";exit(1)}
