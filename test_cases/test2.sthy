@@ -1,11 +1,19 @@
-def evennumber(int a)
+// Test 2 : Primitive Datatypes declaration and printing
+
+def main() 
 {
-    if(a%2==0) // If modulus of number with 2 is zero then number 
-    {
-        print "It is even number";
-    }
-    else 
-    {
-        print "It is odd number";
-    }
+	int a;
+	int b;
+	string s;
+	boolean c;
+
+	a = 0;
+	b = 1;
+	s = "Stoichy is awesome !";
+	c=true;
+
+	print a;
+	print b;
+	print s;
+	print c;
 }

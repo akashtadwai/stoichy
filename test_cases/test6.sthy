@@ -1,20 +1,26 @@
+// Test 6 : Nested if-else statements
+
 def main()
 {
-
-string eq ;
-element S ( 8,16.0,2) ;
-element Br ( 16, 32.0 , 2 ) ;
-element Mn ( 25 , 55.0 , 2 ) ;
-element O (8 , 16.0 , 2) ;
-element K (19 , 39.0 , 1) ;
-element H (1 , 2.0 , 1) ;
-molecule KBr (K,Br) ;
-molecule KMnO4 (K, Mn, O, O, O, O) ;
-molecule H2SO4 (H, H, S , O, O, O, O) ;
-//eq = balance [KBr,KMnO4,H2SO4 --> Br2,MnSO4,K2SO4,H2O] ;
-//eq=balance[H1, Cl2 --> HCl];
-//eq=balance[HCl, NaOH --> NaCl,H2O];
-eq=balance[O2, C6H12O6 --> CO2,H2O];
-print eq;
+    int a;
+    int b;
+    a=2;
+    b=1;
+    if(a!=b)
+    {
+        print "a is not equal to b";
+        if(a>b)
+        {
+            print "a is greater than b";
+        }
+        else 
+        {
+            print "b is greater than a";
+        }
+    }
+    else 
+    {
+        print "a is equal to b";
+    }
 
 }

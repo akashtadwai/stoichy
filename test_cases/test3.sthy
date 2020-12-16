@@ -1,9 +1,17 @@
+// Test 3: Arithmetic Expressions 
+
 def main()
 {
-	double a;
-	element Na(1,2.0,3);
-	element Cl(4,5.0,6);
-	molecule NaCl(Na,Cl);
-	a = Cl.mass;
-	print a;
+	print 100;
+	print 2020;
+
+	
+	print 1+2;
+	print 1- 2;
+	print 1*2;
+	print 1/2;
+	print 1%2;
+
+	print -3- 39;
+	print 14*-3;
 }
