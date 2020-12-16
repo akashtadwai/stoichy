@@ -1,51 +1,74 @@
 open Ast
 open Str
 open Printf
+
 type env = {
 	mutable functions : func_decl list;
 }
 
-let function_equal_name name = function
-	func -> func.fname = name
-
-let function_fparam_name name = function
-	par -> par.pname = name
-
+(* returns true when given name is same as that of variables's name else returns false *)
 let function_var_name name = function
 	variable -> variable.vname = name
 
-(* Checks whether a function has been defined duplicately *)
+
+(* returns true when given name is same as that of function's name else returns false *)
+let function_equal_name name = function
+	func -> func.fname = name
+
+
+(* returns true when given name is same as that of parameters's name else returns false *)
+let function_fparam_name name = function
+	par -> par.pname = name
+
+
+(*Checks if function has been declared or not*)
+let exist_function_name name env = List.exists (function_equal_name name) env.functions
+
+
+(* Checks whether a function has been defined more than once *)
 let function_exist func env = 
 	let name = func.fname in
 	   try
-		   let _ = List.find (function_equal_name name) env.functions in
+		   let _ = List.find (function_equal_name name) env.functions in             
 			   let e = "Duplicate function: "^ name ^" has been defined more than once" in
 				   raise (Failure e)
 		with Not_found -> false
 
 
-(*Checks if function has been declared*)
-let exist_function_name name env = List.exists (function_equal_name name) env.functions
-
-
+(* checks if the function name is there in the list of functions *)
 let get_function_by_name name env = 
 	try
 		   let result = List.find (function_equal_name name) env.functions in
 			      result
-  with Not_found -> raise(Failure("Function "^ name ^ " has not been declared!"))
+  with Not_found -> raise(Failure("Function "^ name ^ " has not been declared"))
 
 
-let get_formal_by_name name func = 
-	try
-		let result = List.find(function_fparam_name name) func.arguments in
-			result
-	with Not_found -> raise(Failure("Formal Param" ^ name ^ " has not been declared!"))
-
+(* checks if the a variable 'name' has been declared *)
 let get_variable_by_name name func = 
 	try
 		let result = List.find(function_var_name name) func.locals in
 		result
-	with Not_found -> raise(Failure("Local Variable " ^ name ^ "has not been declared!"))
+	with Not_found -> raise(Failure("Local Variable " ^ name ^ "is not declared"))
+
+
+(* checks if the a parameter 'name' has been declared *)
+let get_formal_by_name name func = 
+	try
+		let result = List.find(function_fparam_name name) func.arguments in
+			result
+	with Not_found -> raise(Failure("Parameter" ^ name ^ " is not declared"))
+
+
+let count_function_variables func = function
+	a -> let f count b = 
+	if b = a 
+		then count+1
+		else count 
+in 
+	let count = List.fold_left f 0 func.locals in
+		if count > 0
+			then raise (Failure("Duplicate variable in function " ^ func.fname))
+			else count
 
 
 let count_function_params func = function
@@ -60,69 +83,57 @@ in
 			else count
 
 
-let count_function_variables func = function
-	a -> let f count b = 
-	if b = a 
-		then count+1
-		else count 
-in 
-	let count = List.fold_left f 0 func.locals in
-		if count > 0
-			then raise (Failure("Duplicate variable in function " ^ func.fname))
-			else count
-
-(*Determines if a formal paramter with the given name ‘fpname’ exits in the given function*)
-
-let exists_formal_param func fpname =
-try
- List.exists (function_fparam_name fpname) func.arguments
-with Not_found -> raise (Failure ("Formal Parameter " ^ fpname ^ " should exist but was not found in function " ^ func.fname))
-
-
-(*Determines if a variable declaration with the given name ‘vname’ exists in the given functioin*)
-
+(* checks if a variable with the given name "vname" exists in our function *)
 let exists_variable_decl func vname =
 try
  List.exists (function_var_name vname) func.locals
-with Not_found -> raise (Failure ("Variable " ^ vname ^ " should exist but was not found in function " ^ func.fname))
+with Not_found -> raise (Failure ("Variable " ^ vname ^ " not found in function " ^ func.fname))
 
 
+(* checks if a formal paramter with the given name ‘fpname’ exists in our function*)
+let exists_formal_param func fpname =
+try
+ List.exists (function_fparam_name fpname) func.arguments
+with Not_found -> raise (Failure ("Formal Parameter " ^ fpname ^ " not found in function " ^ func.fname))
+
+
+(* checks if there are duplicate parameter names *)
 let dup_param_name func fpname = 
 	let name = func.arguments in
 		try 
 			List.find (function name -> name.pname = fpname.pname ) name 
-	with Not_found -> raise (Failure ("Duplicate param names"))
+	with Not_found -> raise (Failure ("Duplicate parameter names"))
 
 
-
+(* finds the given parameter in the list of function parameters *)
 let get_fparam_type func fpname = 
 	let name = func.arguments in
 		try
 			let fparam = List.find(function_fparam_name fpname) name in
 				fparam.ptype
-		with Not_found -> raise (Failure ("Formal param should exist but not found"))
+		with Not_found -> raise (Failure ("Formal parameter should exist but not found"))
 
 
-(*given variable name, get type*)
+(* gets the type of the given variable name *)
 let get_var_type func vname = 
 	let name = func.locals in 
 		try
 			let var = List.find(function_var_name vname) name in 
 				var.vtype
-		with Not_found -> raise (Failure ("Variable should exist but not found"))
+		with Not_found -> raise (Failure ("Variable not found"))
 
 
-
-
-(*Determines if the given identifier exists*)
-let exists_id name func = (exists_variable_decl func name) || (exists_formal_param func name)
-
-(*see if there is a function with given name*)
+(* checks if there exits a function with given name or not *)
 let find_function func env =
  try
  let _ = List.find (function_equal_name func) env.functions in
  true (*return true on success*)
  with Not_found -> raise Not_found
+
+
+(* checks if the identifier given exists or not *)
+let exists_id name func = (exists_variable_decl func name) || (exists_formal_param func name)
+
 
 let is_int s =
  try ignore (int_of_string s); true
@@ -132,21 +143,27 @@ let is_float s =
  try ignore (float_of_string s); true
  with _ -> false
 
-let is_letter s = string_match (regexp "[A-Za-z]") s 0
-
-let is_string s = string_match (regexp "\".*\"") s 0
-
-let is_string_bool = function "true" -> true | "false" -> true | _ -> false
-
+(* checks if s is a number or not *)
 let rec is_num func = function
 	  Int(_) -> true
 	| Double(_) -> true
 	| Binop(e1,_,e2) -> (is_num func e1) && (is_num func e2)
 	| _ -> false
 
+(* checks if s is a letter or not *)
+let is_letter s = string_match (regexp "[A-Za-z]") s 0    
+
+(* checks if s is a string or not *)
+let is_string s = string_match (regexp "\".*\"") s 0
+
+(* checks if s is a boolean or not *)
 let rec is_boolean func = function
 	Boolean(_) -> true
 	| _ -> false 
+
+(* checks if s is either "true" or "false" or not *)
+let is_string_bool = function "true" -> true | "false" -> true | _ -> false
+
 
 let rec get_expr_type e func =
 	match e with
@@ -209,7 +226,7 @@ let rec valid_expr (func : Ast.func_decl) expr env =
 				| IntType, StringType -> true
 				| StringType, IntType -> true
 				| BooleanType,BooleanType ->true
-				| _,_ -> raise(Failure ("DataTypes do not match up in an assignment expression to variable "))
+				| _,_ -> raise(Failure ("variable's data type doesnt match in the assign expression"))
 		end
 	| Concat(e1,e2) -> 
 		begin
@@ -239,15 +256,15 @@ let has_return_stmt func =
 			| _,_ -> false
 
 
-(*Returns the type of a given variable name *)
+(*given a variable, the function returns its data type*)
 let get_type func name =
-	if exists_variable_decl func name (* True if there exists a var of that name *)
+	if exists_variable_decl func name
 		then get_var_type func name
 		else
 			if exists_formal_param func name 
 				then get_fparam_type func name
-				else (*Variable has not been declared as it was not found*)
-					let e = "Variable \"" ^ name ^ "\" is being used without being declared in function \"" ^ func.fname ^ "\"" in
+				else (*Variable isn't declared*)
+					let e = "Variable \"" ^ name ^ "\" is not declared in function \"" ^ func.fname ^ "\"" in
 						raise (Failure e)
 
 
@@ -307,7 +324,7 @@ let valid_func env f =
 	let duplicate_functions = function_exist f env in 
 		(* let duplicate_parameters = count_function_params f in *)
 			let v_body = valid_body f env in 
-				let _ = env.functions <- f :: env.functions (* Adding function to environment *) in
+				let _ = env.functions <- f :: env.functions in
 				(not duplicate_functions) && (* (not duplicate_parameters) && *) v_body
 
 let check_program flist =
