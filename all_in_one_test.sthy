@@ -1,0 +1,132 @@
+def multipleof5(int a)
+{
+    if(a%5==0)              // Checing the modulous value
+    {
+        print "Hurray! " ^ a ^ " is multiple of 5 : )";
+    }
+    else 
+    {
+        print "Oh no! " ^ a ^ " is not multiple of 5 : (";
+    }
+}
+
+def main()
+{
+    int a;
+    int b;
+    int i;
+    int j;
+    int temp;
+    double m;
+
+    string x;
+    string y;
+    string c;
+    string d;
+    string e;
+
+    element H(1,1.0,1);
+    element O(8,16.0,-2);
+    element Na(11,23.0,1);
+    element Cl(17,35.5,-1);
+    
+	molecule H2O(H,H,O);
+    molecule NaCl(Na,Cl);
+
+    // conditional statements checking
+        a=2;
+        b=1;
+        if(a!=b)
+        {
+            print "a is not equal to b";
+            if(a>b)
+            {
+                print "a is greater than b";
+            }
+            else 
+            {
+                print "b is greater than a";
+            }
+        }
+        else 
+        {
+            print "a is equal to b";
+        }
+    
+    // /* Opened a comment but didn't close it
+    print "\t\t\tCompleted part 1 of this test";
+
+    // Arithmetic operations, function calls and strings and bool testing
+    
+        print 100;
+        print 2020;
+        print 1+2;
+        print 1- 2;
+        print 1*2;
+        print 1/2;
+        print 1%2;
+        print -3- 39;
+        print 14*-3;
+        print 1 >= 2;
+        print 2 <= 3;
+        print "";
+
+        print " Printing without using concatenation";
+        e = "Hello, world!";
+        print e;      
+        x = "Hello";
+        y = "world";
+        c = "!";
+        print " Printing by using concatenation";
+        print x ^ ", " ^ y ^ c;
+        print "";
+
+        a = 4;
+        b = 10;
+        call multipleof5(a);      // Calling multipleof5 function
+        call multipleof5(b);      // Calling multipleof5 function
+
+    // Didn't put ' " ' at end of string
+    // x="hi
+    print "\t\t\tCompleted part 2 of this test";
+    
+        i = 0;
+        j = 0;
+        a = 10;
+
+        while (i<=a)
+        {
+            temp = i-a;
+            print temp;
+            i=i+1;
+        }
+        print "-----";
+        for (i=1;i<=a;i=i+1)
+        {
+            temp = i*1;
+            print temp;
+        }
+    //print " Didn't place ';' after print statement "
+    print "\t\t\tCompleted part 3 of this test";
+
+        m = H2O.mass;
+        print "Mass of H2O is " ^ m;
+        a = H2O.charge;
+        print "Charge of H2O is " ^ a;
+        m = NaCl.mass;
+        print "Mass of NaCl is " ^ m;
+        a = NaCl.charge;
+        print "Charge of NaCl is " ^ a;
+        print "";
+
+        c = balance [KBr,KMnO4,H2SO4 --> Br2,MnSO4,K2SO4,H2O];
+        d = balance [SnO2,H2 --> H2O,Sn1];
+        x = balance [CuSCN, KIO3, HCl --> CuSO4, KCl, HCN, ICl, H2O];// complex equation
+        e = balance [H2-->O2]; // invalid equation entered
+        print c;
+        print d;
+        print x;
+        print e;
+    //#
+    print "\t\t\tCompleted the whole test.\n\t\t\tHurrahhh!!";
+}
