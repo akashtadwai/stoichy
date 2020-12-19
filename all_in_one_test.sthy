@@ -32,8 +32,8 @@ def main()
     
 	molecule H2O(H,H,O);
     molecule NaCl(Na,Cl);
-
-    // conditional statements checking
+    
+    {// conditional statements testing
         a=2;
         b=1;
         if(a!=b)
@@ -52,12 +52,12 @@ def main()
         {
             print "a is equal to b";
         }
-    
+    }
+
     // /* Opened a comment but didn't close it
     print "\t\t\tCompleted part 1 of this test";
-
-    // Arithmetic operations, function calls and strings and bool testing
     
+    {// Arithmetic operations and bool testing
         print 100;
         print 2020;
         print 1+2;
@@ -70,7 +70,8 @@ def main()
         print 1 >= 2;
         print 2 <= 3;
         print "";
-
+    }
+    {//strings 
         print " Printing without using concatenation";
         e = "Hello, world!";
         print e;      
@@ -80,16 +81,19 @@ def main()
         print " Printing by using concatenation";
         print x ^ ", " ^ y ^ c;
         print "";
-
+    }
+    {// function calls testing
         a = 4;
         b = 10;
         call multipleof5(a);      // Calling multipleof5 function
         call multipleof5(b);      // Calling multipleof5 function
+    }
 
     // Didn't put ' " ' at end of string
     // x="hi
     print "\t\t\tCompleted part 2 of this test";
     
+    {// for and while loops testing
         i = 0;
         j = 0;
         a = 10;
@@ -106,9 +110,11 @@ def main()
             temp = i*1;
             print temp;
         }
+    }
     //print " Didn't place ';' after print statement "
     print "\t\t\tCompleted part 3 of this test";
 
+    {// basic inbuilt fucntions testing
         m = H2O.mass;
         print "Mass of H2O is " ^ m;
         a = H2O.charge;
@@ -118,7 +124,8 @@ def main()
         a = NaCl.charge;
         print "Charge of NaCl is " ^ a;
         print "";
-
+    }
+    {// balance inbuilt fucntion testing
         c = balance [KBr,KMnO4,H2SO4 --> Br2,MnSO4,K2SO4,H2O];
         d = balance [SnO2,H2 --> H2O,Sn1];
         x = balance [CuSCN, KIO3, HCl --> CuSO4, KCl, HCN, ICl, H2O];// complex equation
@@ -127,6 +134,7 @@ def main()
         print d;
         print x;
         print e;
+    }
     //#
     print "\t\t\tCompleted the whole test.\n\t\t\tHurrahhh!!";
 }
